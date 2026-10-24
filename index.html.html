@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Artificial Intelligence | Engineering Foundations</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0.0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom scrollbar and smooth glow effects */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(229, 231, 235, 0.5);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #93c5fd;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #1e40af;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+        .glow-blue {
+            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.25);
+        }
+        .glow-blue:hover {
+            box-shadow: 0 20px 35px -10px rgba(37, 99, 235, 0.35);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col transition-colors duration-300 max-w-full overflow-x-hidden">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 backdrop-blur-lg bg-white/85 dark:bg-slate-950/85 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-600 to-sky-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/25 transition-transform duration-300 hover:scale-105">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-brand-950 via-brand-700 to-sky-600 dark:from-white dark:via-brand-200 dark:to-sky-400 bg-clip-text text-transparent block">
+                        AI Tech Academy
+                    </span>
+                    <span class="text-[10px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase block -mt-1">
+                        Computer Science Foundations
+                    </span>
+                </div>
+            </div>
+
+            <!-- Nav Links & Dark Mode -->
+            <div class="flex items-center space-x-4 sm:space-x-8">
+                <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide">
+                    <a href="#overview" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors py-1 relative group">
+                        Modules
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-600 dark:bg-brand-400 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#visualizer" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors py-1 relative group">
+                        AI Hierarchy
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-600 dark:bg-brand-400 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#quiz" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors py-1 relative group">
+                        Knowledge Check
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-600 dark:bg-brand-400 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </nav>
+
+                <!-- Dark Mode Toggle Button -->
+                <button id="themeToggle" aria-label="Toggle Theme" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 border border-slate-200/80 dark:border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-brand-500 hover:scale-105 active:scale-95">
+                    <!-- Sun Icon -->
+                    <svg id="themeSun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <!-- Moon Icon -->
+                    <svg id="themeMoon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden py-16 sm:py-24 lg:py-28 bg-gradient-to-b from-brand-50/70 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900/60 dark:to-slate-950 border-b border-slate-200/60 dark:border-slate-800/60">
+        <!-- Background Ambient Elements -->
+        <div class="absolute -top-24 -left-20 w-96 h-96 bg-brand-400/20 rounded-full blur-3xl pointer-events-none animate-pulse-slow"></div>
+        <div class="absolute top-1/2 -right-20 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:28px_28px] opacity-15 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-brand-100/80 dark:bg-brand-950/80 text-brand-700 dark:text-brand-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-8 border border-brand-200 dark:border-brand-800/80 shadow-sm backdrop-blur-md">
+                <span class="inline-block w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
+                <span>CS & Engineering 101 • Interactive Guide</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
+                Introduction to <br class="hidden sm:inline"/>
+                <span class="bg-gradient-to-r from-brand-700 via-brand-500 to-sky-500 dark:from-brand-300 dark:via-blue-400 dark:to-sky-300 bg-clip-text text-transparent">
+                    Artificial Intelligence
+                </span>
+            </h1>
+
+            <p class="max-w-3xl mx-auto text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 font-normal leading-relaxed mb-10">
+                Explore core paradigms, algorithmic foundations, and real-world engineering applications shaping the next era of intelligent computing.
+            </p>
+
+            <!-- Stats Highlight Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10 p-2 sm:p-3 rounded-2xl bg-white/70 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800/80 backdrop-blur-md shadow-lg">
+                <div class="p-3 text-center border-b sm:border-b-0 sm:border-r border-slate-200 dark:border-slate-800">
+                    <div class="text-2xl font-extrabold text-brand-600 dark:text-brand-400">3 Core</div>
+                    <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">Foundational Modules</div>
+                </div>
+                <div class="p-3 text-center border-b sm:border-b-0 sm:border-r border-slate-200 dark:border-slate-800">
+                    <div class="text-2xl font-extrabold text-sky-600 dark:text-sky-400">Interactive</div>
+                    <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">Domain Visualizer</div>
+                </div>
+                <div class="p-3 text-center">
+                    <div class="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400">Immediate</div>
+                    <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">Knowledge Assessment</div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#overview" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-base shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center space-x-2">
+                    <span>Explore Core Modules</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </a>
+                <a href="#quiz" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-base border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center space-x-2">
+                    <span>Take Practice Quiz</span>
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE INFORMATION CARDS -->
+    <section id="overview" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 dark:bg-brand-900/60 dark:text-brand-300 text-xs font-bold uppercase tracking-wider">
+                Curriculum Overview
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">Foundational Knowledge Cards</h2>
+            <p class="text-slate-600 dark:text-slate-400 mt-3 text-base">Key technical pillars simplified for engineering beginners</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- CARD 1: What is AI? -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group transform hover:-translate-y-1.5 relative">
+                <!-- Distinct Gradient Accent Top Border -->
+                <div class="h-2 w-full bg-gradient-to-r from-blue-600 via-brand-500 to-indigo-500"></div>
+                <div class="p-6 sm:p-8 flex-1">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-950/80 text-brand-600 dark:text-brand-400 border border-blue-100 dark:border-blue-900/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-extrabold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/80 px-3 py-1 rounded-full border border-brand-200 dark:border-brand-800">
+                            MODULE 01
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">What is Artificial Intelligence?</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                        Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think, reason, and learn like human beings.
+                    </p>
+
+                    <!-- Feature Bullet Tags -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Reasoning</span>
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Automation</span>
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Problem Solving</span>
+                    </div>
+                    
+                    <!-- Accordion / Deep Dive -->
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-4">
+                        <button onclick="toggleAccordion('acc1')" class="w-full flex justify-between items-center text-left text-sm font-bold text-brand-600 dark:text-brand-400 focus:outline-none group/btn">
+                            <span>Key Perspectives & Concepts</span>
+                            <svg id="acc1-icon" class="w-4 h-4 transform transition-transform duration-200 group-hover/btn:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="acc1" class="hidden mt-3 text-xs text-slate-600 dark:text-slate-400 space-y-2.5 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                            <p>• <strong>Narrow AI (Weak AI):</strong> Designed for a specific task (e.g., chess engine, facial recognition).</p>
+                            <p>• <strong>General AI (Strong AI):</strong> Theoretical machine possessing human-level cognitive capabilities across any problem domain.</p>
+                            <p>• <strong>Goal:</strong> Rational decision-making, pattern comprehension, and automated problem-solving.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-50/80 dark:bg-slate-800/60 px-6 py-3.5 border-t border-slate-100 dark:border-slate-800/80 text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                    <span>Focus: Cognitive Mimicry & Reasoning</span>
+                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </div>
+            </div>
+
+            <!-- CARD 2: What is Machine Learning? -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group transform hover:-translate-y-1.5 relative">
+                <!-- Distinct Gradient Accent Top Border -->
+                <div class="h-2 w-full bg-gradient-to-r from-indigo-500 via-indigo-600 to-sky-400"></div>
+                <div class="p-6 sm:p-8 flex-1">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/80 px-3 py-1 rounded-full border border-indigo-200 dark:border-indigo-800">
+                            MODULE 02
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">What is Machine Learning?</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                        Machine Learning (ML) is a subfield of AI that enables systems to automatically learn and improve from experience and data without explicit programming.
+                    </p>
+
+                    <!-- Feature Bullet Tags -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Algorithms</span>
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Training Data</span>
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Pattern Matching</span>
+                    </div>
+
+                    <!-- Accordion / Deep Dive -->
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-4">
+                        <button onclick="toggleAccordion('acc2')" class="w-full flex justify-between items-center text-left text-sm font-bold text-indigo-600 dark:text-indigo-400 focus:outline-none group/btn">
+                            <span>The 3 Main Types of ML</span>
+                            <svg id="acc2-icon" class="w-4 h-4 transform transition-transform duration-200 group-hover/btn:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="acc2" class="hidden mt-3 text-xs text-slate-600 dark:text-slate-400 space-y-2.5 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                            <p>• <strong>Supervised Learning:</strong> Learning from labeled data (Input ➔ Target Output).</p>
+                            <p>• <strong>Unsupervised Learning:</strong> Discovering hidden patterns in unlabeled data (Clustering).</p>
+                            <p>• <strong>Reinforcement Learning:</strong> Agent learning through trial, error, rewards, and penalties.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-50/80 dark:bg-slate-800/60 px-6 py-3.5 border-t border-slate-100 dark:border-slate-800/80 text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                    <span>Focus: Data-Driven Optimization</span>
+                    <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </div>
+            </div>
+
+            <!-- CARD 3: Real World Applications -->
+            <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group transform hover:-translate-y-1.5 relative">
+                <!-- Distinct Gradient Accent Top Border -->
+                <div class="h-2 w-full bg-gradient-to-r from-sky-400 via-cyan-500 to-blue-600"></div>
+                <div class="p-6 sm:p-8 flex-1">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-50 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 border border-cyan-100 dark:border-cyan-900/50 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-extrabold text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/80 px-3 py-1 rounded-full border border-cyan-200 dark:border-cyan-800">
+                            MODULE 03
+                        </span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Real-World AI Applications</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                        AI transforms industries daily, from autonomous navigation to modern generative AI tools and medical breakthroughs.
+                    </p>
+
+                    <!-- Feature Bullet Tags -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Healthcare</span>
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Autonomous Cars</span>
+                        <span class="text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">Generative AI</span>
+                    </div>
+
+                    <!-- Accordion / Deep Dive -->
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-4">
+                        <button onclick="toggleAccordion('acc3')" class="w-full flex justify-between items-center text-left text-sm font-bold text-cyan-600 dark:text-cyan-400 focus:outline-none group/btn">
+                            <span>Key Industry Examples</span>
+                            <svg id="acc3-icon" class="w-4 h-4 transform transition-transform duration-200 group-hover/btn:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="acc3" class="hidden mt-3 text-xs text-slate-600 dark:text-slate-400 space-y-2.5 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                            <p>• <strong>NLP & LLMs:</strong> ChatGPT, translation services, text summarization.</p>
+                            <p>• <strong>Healthcare:</strong> Early cancer detection in MRI and X-ray analysis.</p>
+                            <p>• <strong>Autonomous Systems:</strong> Self-driving cars, robotics, supply chain optimization.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-50/80 dark:bg-slate-800/60 px-6 py-3.5 border-t border-slate-100 dark:border-slate-800/80 text-xs font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                    <span>Focus: Practical Real-World Impact</span>
+                    <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE AI VS ML VS DL VISUALIZER -->
+    <section id="visualizer" class="py-20 bg-slate-100/80 dark:bg-slate-900/50 border-y border-slate-200/80 dark:border-slate-800/80 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="px-3 py-1 rounded-full bg-brand-100 text-brand-800 dark:bg-brand-900/60 dark:text-brand-300 text-xs font-bold uppercase tracking-wider">
+                    Interactive Diagram
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">AI vs Machine Learning vs Deep Learning</h2>
+                <p class="text-slate-600 dark:text-slate-400 mt-3 text-base">
+                    Understanding the hierarchical relationship between key computer science domains. Click any section below to inspect details.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Interactive Nested Circles Diagram -->
+                <div class="lg:col-span-7 flex justify-center">
+                    <div class="w-full max-w-md bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xl">
+                        <!-- Outer Tier: AI -->
+                        <div id="tier-ai" onclick="selectTier('ai')" class="cursor-pointer transition-all duration-300 rounded-2xl p-6 bg-blue-50/90 dark:bg-blue-950/60 border-2 border-brand-400 dark:border-brand-600 hover:border-brand-600 text-brand-900 dark:text-brand-200 shadow-md">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="font-extrabold text-sm sm:text-base tracking-wide uppercase">Artificial Intelligence</span>
+                                <span class="text-[11px] font-bold bg-brand-200/80 dark:bg-brand-800 text-brand-900 dark:text-brand-100 px-2.5 py-0.5 rounded-full">Broadest Scope</span>
+                            </div>
+
+                            <!-- Middle Tier: ML -->
+                            <div id="tier-ml" onclick="event.stopPropagation(); selectTier('ml')" class="transition-all duration-300 rounded-xl p-5 bg-indigo-100/80 dark:bg-indigo-900/50 border-2 border-indigo-400 dark:border-indigo-600 hover:border-indigo-600 text-indigo-950 dark:text-indigo-200 shadow-sm">
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="font-extrabold text-xs sm:text-sm uppercase">Machine Learning</span>
+                                    <span class="text-[10px] font-bold bg-indigo-200/80 dark:bg-indigo-800 text-indigo-900 dark:text-indigo-100 px-2.5 py-0.5 rounded-full">Subset of AI</span>
+                                </div>
+
+                                <!-- Inner Tier: DL -->
+                                <div id="tier-dl" onclick="event.stopPropagation(); selectTier('dl')" class="transition-all duration-300 rounded-lg p-4 bg-sky-100 dark:bg-sky-900/70 border-2 border-sky-400 dark:border-sky-500 hover:border-sky-600 text-sky-950 dark:text-sky-100 text-center shadow-sm">
+                                    <span class="font-extrabold text-xs uppercase block">Deep Learning</span>
+                                    <span class="text-[10px] font-medium opacity-80">(Neural Networks & Multi-layer Models)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Explanation Display Box -->
+                <div class="lg:col-span-5">
+                    <div id="tier-info-box" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
+                        <span id="tier-badge" class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+                            Domain Overview
+                        </span>
+                        <h3 id="tier-title" class="text-2xl font-bold text-slate-900 dark:text-white mt-4">
+                            Artificial Intelligence (AI)
+                        </h3>
+                        <p id="tier-description" class="text-slate-600 dark:text-slate-300 text-sm mt-3 leading-relaxed">
+                            The overarching discipline focused on creating smart machines capable of performing tasks that typically require human intelligence, such as visual perception, decision-making, and language translation.
+                        </p>
+                        <div class="mt-6 border-t border-slate-100 dark:border-slate-800 pt-5">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Key Technique Example:</h4>
+                            <p id="tier-example" class="text-xs font-mono bg-slate-50 dark:bg-slate-800/80 p-3.5 rounded-xl text-slate-700 dark:text-slate-300 border border-slate-100 dark:border-slate-800">
+                                Expert Systems, Rule-based engines, Decision Trees, ML algorithms.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIZ SECTION -->
+    <section id="quiz" class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full scroll-mt-24">
+        <div class="text-center mb-10">
+            <span class="px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 dark:bg-brand-900/60 dark:text-brand-300 text-xs font-bold uppercase tracking-wider">
+                Interactive Assessment
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">Knowledge Check Quiz</h2>
+            <p class="text-slate-600 dark:text-slate-400 mt-3 text-base">
+                Evaluate your understanding of the core concepts covered above.
+            </p>
+        </div>
+
+        <!-- Inline Validation Warning Toast -->
+        <div id="quizValidationAlert" class="hidden mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 dark:bg-amber-950/70 dark:border-amber-800 dark:text-amber-200 text-sm font-semibold flex items-center space-x-3 shadow-md animate-bounce">
+            <svg class="w-5 h-5 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <span>Please answer all 3 questions before submitting your answers!</span>
+        </div>
+
+        <form id="quizForm" onsubmit="handleQuizSubmit(event)" class="space-y-8">
+            
+            <!-- QUESTION 1 -->
+            <div id="card-q1" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-md transition-all hover:shadow-lg">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="flex-shrink-0 w-9 h-9 rounded-xl bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300 font-extrabold text-sm flex items-center justify-center border border-brand-200 dark:border-brand-800">1</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                        What is the primary conceptual difference between traditional programming and Machine Learning?
+                    </h3>
+                </div>
+
+                <div class="space-y-3.5 sm:ml-12" id="options-q1">
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q1" value="A" onchange="highlightSelection('q1')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Traditional programming uses physical hardware, whereas ML operates only on cloud software.</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q1" value="B" onchange="highlightSelection('q1')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Traditional programming processes Data + Rules to produce Answers; ML processes Data + Answers to output learned Rules.</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q1" value="C" onchange="highlightSelection('q1')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Machine learning models do not require any historical data to make predictions.</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q1" value="D" onchange="highlightSelection('q1')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Traditional programming automatically adapts its own code based on user feedback.</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="feedback-q1" class="hidden sm:ml-12 mt-5 p-4 rounded-2xl text-xs sm:text-sm leading-relaxed"></div>
+            </div>
+
+            <!-- QUESTION 2 -->
+            <div id="card-q2" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-md transition-all hover:shadow-lg">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="flex-shrink-0 w-9 h-9 rounded-xl bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300 font-extrabold text-sm flex items-center justify-center border border-brand-200 dark:border-brand-800">2</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                        Which subfield of AI focuses on enabling computers to understand, interpret, and process human language?
+                    </h3>
+                </div>
+
+                <div class="space-y-3.5 sm:ml-12" id="options-q2">
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q2" value="A" onchange="highlightSelection('q2')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Computer Vision</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q2" value="B" onchange="highlightSelection('q2')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Robotics</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q2" value="C" onchange="highlightSelection('q2')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Natural Language Processing (NLP)</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q2" value="D" onchange="highlightSelection('q2')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Expert Systems</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="feedback-q2" class="hidden sm:ml-12 mt-5 p-4 rounded-2xl text-xs sm:text-sm leading-relaxed"></div>
+            </div>
+
+            <!-- QUESTION 3 -->
+            <div id="card-q3" class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-md transition-all hover:shadow-lg">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="flex-shrink-0 w-9 h-9 rounded-xl bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300 font-extrabold text-sm flex items-center justify-center border border-brand-200 dark:border-brand-800">3</span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                        What type of machine learning uses a trial-and-error environment with rewards and penalties to train an agent?
+                    </h3>
+                </div>
+
+                <div class="space-y-3.5 sm:ml-12" id="options-q3">
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q3" value="A" onchange="highlightSelection('q3')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Supervised Learning</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q3" value="B" onchange="highlightSelection('q3')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Unsupervised Learning</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q3" value="C" onchange="highlightSelection('q3')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Reinforcement Learning</span>
+                        </div>
+                    </label>
+
+                    <label class="option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200">
+                        <div class="flex items-center space-x-3">
+                            <input type="radio" name="q3" value="D" onchange="highlightSelection('q3')" class="w-4 h-4 text-brand-600 focus:ring-brand-500 border-slate-300">
+                            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Semi-supervised Learning</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="feedback-q3" class="hidden sm:ml-12 mt-5 p-4 rounded-2xl text-xs sm:text-sm leading-relaxed"></div>
+            </div>
+
+            <!-- Quiz Results Banner -->
+            <div id="quizResultBanner" class="hidden p-8 rounded-3xl bg-brand-50 dark:bg-brand-950/80 border-2 border-brand-300 dark:border-brand-700 text-center shadow-xl transition-all">
+                <span id="scoreBadge" class="inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3"></span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" id="scoreTitle">Quiz Results</h3>
+                <p class="text-brand-700 dark:text-brand-300 text-2xl font-extrabold mt-2" id="scoreText">You scored 0 / 3 (0%)</p>
+                <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-2 max-w-lg mx-auto font-medium" id="scoreFeedback"></p>
+            </div>
+
+            <!-- Quiz Action Buttons -->
+            <div class="flex items-center justify-center gap-4 pt-4">
+                <button type="submit" id="submitBtn" class="px-9 py-4 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-base shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0">
+                    Submit Answers
+                </button>
+                <button type="button" id="resetBtn" onclick="resetQuiz()" class="hidden px-8 py-4 rounded-2xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-base transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    <span>Retake Quiz</span>
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-10 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-slate-500 dark:text-slate-400 text-sm gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center font-extrabold text-xs">
+                    AI
+                </div>
+                <span class="font-bold text-slate-800 dark:text-slate-200">AI Tech Academy</span>
+                <span>• CS & Engineering Foundations</span>
+            </div>
+            <div>
+                <p>© 2026 Interactive Learning Resource. Built for First-Year Students.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT INTERACTION LOGIC -->
+    <script>
+        // 1. Dark Mode Toggle Script
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeSun = document.getElementById('themeSun');
+        const themeMoon = document.getElementById('themeMoon');
+
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeSun.classList.remove('hidden');
+                themeMoon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeSun.classList.add('hidden');
+                themeMoon.classList.remove('hidden');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeSun.classList.add('hidden');
+                themeMoon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeSun.classList.remove('hidden');
+                themeMoon.classList.add('hidden');
+            }
+        });
+
+        initTheme();
+
+        // 2. Accordion Toggle Logic
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                el.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // 3. AI vs ML vs DL Tier Interactive Visualizer Logic
+        const tierData = {
+            ai: {
+                badge: 'Broad Domain',
+                title: 'Artificial Intelligence (AI)',
+                description: 'The overall discipline of creating intelligence in machines. Encompasses symbolic reasoning, rule-based systems, expert systems, and learning algorithms aimed at mimicking human decision-making.',
+                example: 'Rule-based systems, Chess engines (Deep Blue), Search algorithms, Machine Learning models.',
+                badgeClass: 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300'
+            },
+            ml: {
+                badge: 'Subfield of AI',
+                title: 'Machine Learning (ML)',
+                description: 'A technique that provides systems the ability to automatically learn patterns from empirical data without being explicitly programmed for every scenario.',
+                example: 'Linear Regression, Decision Trees, Support Vector Machines, Random Forests.',
+                badgeClass: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300'
+            },
+            dl: {
+                badge: 'Specialized Subset of ML',
+                title: 'Deep Learning (DL)',
+                description: 'A branch of ML based on Artificial Neural Networks with many layers (deep architectures). Excellent at discovering patterns in high-dimensional unstructured data like images, speech, and text.',
+                example: 'Convolutional Neural Networks (CNNs) for vision, Transformers (GPT) for language modeling.',
+                badgeClass: 'bg-sky-100 text-sky-700 dark:bg-sky-900 dark:text-sky-300'
+            }
+        };
+
+        function selectTier(key) {
+            const data = tierData[key];
+            
+            // Update info panel
+            document.getElementById('tier-badge').textContent = data.badge;
+            document.getElementById('tier-badge').className = `px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${data.badgeClass}`;
+            document.getElementById('tier-title').textContent = data.title;
+            document.getElementById('tier-description').textContent = data.description;
+            document.getElementById('tier-example').textContent = data.example;
+
+            // Visual Highlight adjustments
+            const tiers = ['ai', 'ml', 'dl'];
+            tiers.forEach(t => {
+                const el = document.getElementById(`tier-${t}`);
+                if (t === key) {
+                    el.classList.add('ring-4', 'ring-brand-500/50');
+                } else {
+                    el.classList.remove('ring-4', 'ring-brand-500/50');
+                }
+            });
+        }
+
+        // Highlight option label visually on user select before submission
+        function highlightSelection(qKey) {
+            const container = document.getElementById(`options-${qKey}`);
+            const labels = container.querySelectorAll('.option-wrapper');
+            labels.forEach(lbl => {
+                const radio = lbl.querySelector('input[type="radio"]');
+                if (radio.checked) {
+                    lbl.classList.add('border-brand-500', 'bg-brand-50/60', 'dark:bg-brand-950/40', 'ring-2', 'ring-brand-500/20');
+                    lbl.classList.remove('border-slate-200', 'dark:border-slate-800');
+                } else {
+                    lbl.classList.remove('border-brand-500', 'bg-brand-50/60', 'dark:bg-brand-950/40', 'ring-2', 'ring-brand-500/20');
+                    lbl.classList.add('border-slate-200', 'dark:border-slate-800');
+                }
+            });
+            // Hide alert if visible
+            document.getElementById('quizValidationAlert').classList.add('hidden');
+        }
+
+        // 4. Enhanced Quiz Functionality
+        const quizAnswers = {
+            q1: {
+                correct: 'B',
+                explanation: 'Traditional programming inputs Data + Rules to generate Answers. Machine learning inputs Data + Answers to automatically discover and output the governing Rules.'
+            },
+            q2: {
+                correct: 'C',
+                explanation: 'Natural Language Processing (NLP) is the specific domain of AI concerned with giving computers the capability to understand, interpret, and generate human written and spoken text.'
+            },
+            q3: {
+                correct: 'C',
+                explanation: 'Reinforcement Learning trains an agent using dynamic trial-and-error interactions with an environment, optimizing actions through rewards and penalties.'
+            }
+        };
+
+        function handleQuizSubmit(e) {
+            e.preventDefault();
+
+            const form = document.getElementById('quizForm');
+            const data = new FormData(form);
+            const alertBox = document.getElementById('quizValidationAlert');
+            
+            let score = 0;
+            let unanswered = [];
+
+            // 1. Validation check
+            for (let i = 1; i <= 3; i++) {
+                if (!data.get(`q${i}`)) {
+                    unanswered.push(i);
+                }
+            }
+
+            if (unanswered.length > 0) {
+                alertBox.classList.remove('hidden');
+                alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            } else {
+                alertBox.classList.add('hidden');
+            }
+
+            // 2. Evaluate answers & apply visual styling
+            for (let i = 1; i <= 3; i++) {
+                const qKey = `q${i}`;
+                const userAns = data.get(qKey);
+                const feedbackEl = document.getElementById(`feedback-${qKey}`);
+                const optionsContainer = document.getElementById(`options-${qKey}`);
+                const wrappers = optionsContainer.querySelectorAll('.option-wrapper');
+                const isCorrect = userAns === quizAnswers[qKey].correct;
+
+                if (isCorrect) score++;
+
+                // Process option wrapper styles & icons
+                wrappers.forEach(wrapper => {
+                    const radio = wrapper.querySelector('input[type="radio"]');
+                    const val = radio.value;
+                    radio.disabled = true; // Disable radios after submit
+                    wrapper.classList.remove('hover:border-brand-500', 'hover:bg-slate-50/80', 'cursor-pointer', 'ring-2', 'ring-brand-500/20');
+                    wrapper.classList.add('cursor-not-allowed');
+
+                    if (val === quizAnswers[qKey].correct) {
+                        // Highlight correct answer in green
+                        wrapper.classList.remove('border-slate-200', 'border-brand-500', 'dark:border-slate-800');
+                        wrapper.classList.add('border-emerald-500', 'bg-emerald-50/80', 'dark:bg-emerald-950/60', 'text-emerald-950', 'dark:text-emerald-200', 'font-bold');
+                        
+                        if (!wrapper.querySelector('.correct-badge')) {
+                            const badge = document.createElement('span');
+                            badge.className = 'correct-badge ml-auto text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900 px-2.5 py-1 rounded-full flex items-center space-x-1';
+                            badge.innerHTML = '<span>✓ Correct Answer</span>';
+                            wrapper.querySelector('div').appendChild(badge);
+                        }
+                    } else if (val === userAns && !isCorrect) {
+                        // Highlight incorrect user pick in red
+                        wrapper.classList.remove('border-slate-200', 'border-brand-500', 'dark:border-slate-800');
+                        wrapper.classList.add('border-rose-500', 'bg-rose-50/80', 'dark:bg-rose-950/60', 'text-rose-950', 'dark:text-rose-200');
+                        
+                        if (!wrapper.querySelector('.incorrect-badge')) {
+                            const badge = document.createElement('span');
+                            badge.className = 'incorrect-badge ml-auto text-xs font-bold text-rose-700 dark:text-rose-300 bg-rose-100 dark:bg-rose-900 px-2.5 py-1 rounded-full flex items-center space-x-1';
+                            badge.innerHTML = '<span>✕ Your Selection</span>';
+                            wrapper.querySelector('div').appendChild(badge);
+                        }
+                    } else {
+                        wrapper.classList.add('opacity-60');
+                    }
+                });
+
+                // Detailed Feedback Message Block
+                feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'bg-rose-50', 'text-rose-800', 'dark:bg-emerald-950/60', 'dark:text-emerald-200', 'dark:bg-rose-950/60', 'dark:text-rose-200');
+
+                if (isCorrect) {
+                    feedbackEl.classList.add('bg-emerald-50', 'text-emerald-900', 'dark:bg-emerald-950/60', 'dark:text-emerald-200', 'border', 'border-emerald-200', 'dark:border-emerald-800');
+                    feedbackEl.innerHTML = `<div class="font-bold flex items-center space-x-2 mb-1"><span class="text-base">✓</span> <span>Great job! Correct Answer: (${quizAnswers[qKey].correct})</span></div><p class="text-xs sm:text-sm text-emerald-800 dark:text-emerald-300">${quizAnswers[qKey].explanation}</p>`;
+                } else {
+                    feedbackEl.classList.add('bg-rose-50', 'text-rose-900', 'dark:bg-rose-950/60', 'dark:text-rose-200', 'border', 'border-rose-200', 'dark:border-rose-800');
+                    feedbackEl.innerHTML = `<div class="font-bold flex items-center space-x-2 mb-1"><span class="text-base">✕</span> <span>Incorrect. Correct Option: (${quizAnswers[qKey].correct})</span></div><p class="text-xs sm:text-sm text-rose-800 dark:text-rose-300">${quizAnswers[qKey].explanation}</p>`;
+                }
+            }
+
+            // 3. Display Personalized Score Banner
+            const banner = document.getElementById('quizResultBanner');
+            const scoreBadge = document.getElementById('scoreBadge');
+            const scoreText = document.getElementById('scoreText');
+            const scoreFeedback = document.getElementById('scoreFeedback');
+            const pct = Math.round((score / 3) * 100);
+
+            banner.classList.remove('hidden');
+            scoreText.textContent = `You scored ${score} out of 3 (${pct}%)`;
+
+            if (score === 3) {
+                scoreBadge.textContent = 'Perfect Score!';
+                scoreBadge.className = 'inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3 bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 border border-emerald-300';
+                scoreFeedback.textContent = 'Outstanding work! You have mastered the fundamental principles of AI and Machine Learning.';
+            } else if (score === 2) {
+                scoreBadge.textContent = 'Good Job!';
+                scoreBadge.className = 'inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-300';
+                scoreFeedback.textContent = 'Solid effort! You have a good foundation. Review the highlighted corrections above to achieve 100%.';
+            } else {
+                scoreBadge.textContent = 'Needs Review';
+                scoreBadge.className = 'inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 border border-amber-300';
+                scoreFeedback.textContent = 'Don\'t worry! Read through the information cards above and try taking the quiz again to reinforce your knowledge.';
+            }
+
+            // Scroll to results banner smoothly
+            banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Toggle Buttons
+            document.getElementById('submitBtn').classList.add('hidden');
+            document.getElementById('resetBtn').classList.remove('hidden');
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            document.getElementById('quizValidationAlert').classList.add('hidden');
+            
+            // Reset question cards, inputs & labels
+            for (let i = 1; i <= 3; i++) {
+                const qKey = `q${i}`;
+                const feedbackEl = document.getElementById(`feedback-${qKey}`);
+                feedbackEl.classList.add('hidden');
+                feedbackEl.innerHTML = '';
+
+                const container = document.getElementById(`options-${qKey}`);
+                const wrappers = container.querySelectorAll('.option-wrapper');
+                
+                wrappers.forEach(wrapper => {
+                    const radio = wrapper.querySelector('input[type="radio"]');
+                    radio.disabled = false;
+                    
+                    // Clear custom option badges
+                    const correctBadge = wrapper.querySelector('.correct-badge');
+                    const incorrectBadge = wrapper.querySelector('.incorrect-badge');
+                    if (correctBadge) correctBadge.remove();
+                    if (incorrectBadge) incorrectBadge.remove();
+
+                    // Restore initial styling
+                    wrapper.className = 'option-wrapper block p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-400 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 cursor-pointer transition-all duration-200';
+                });
+            }
+
+            // Hide result banner & toggle buttons
+            document.getElementById('quizResultBanner').classList.add('hidden');
+            document.getElementById('submitBtn').classList.remove('hidden');
+            document.getElementById('resetBtn').classList.add('hidden');
+
+            // Scroll back to quiz top
+            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
